@@ -1,0 +1,24 @@
+{
+  "name": "Python Development",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "..",
+    "cacheFrom": ""
+  },
+  "features": {
+    "ghcr.io/tobiaschc/devcontainer-features/starship:1": {}
+  },
+  "forwardPorts": [
+    8000,
+    8080
+  ],
+  "remoteUser": "root",
+  "runArgs": [
+    "--network=host",
+    "--privileged"
+  ],
+  "mounts": [
+    "source=${localWorkspaceFolder}/.devcontainer/starship.toml,target=/root/.config/starship.toml,type=bind",
+    "source=${localWorkspaceFolder}/.devcontainer/zshrc,target=/root/.zshrc,type=bind"
+  ]
+}
