@@ -2,7 +2,7 @@
 
 set -e
 
-WORK_DIR="debian-custom"
+WORK_DIR="tmp/debian"
 ISO_OUTPUT="ISOs/debian-custom.iso"
 
 echo "==> Installing build dependencies..."
@@ -17,6 +17,7 @@ cd "$WORK_DIR"
 echo "==> Configuring live-build..."
 lb config \
   --architectures amd64 \
+  --distribution bookworm \
   --debian-installer live \
   --archive-areas "main contrib non-free non-free-firmware" \
   --bootappend-live "boot=live components quiet splash" \
@@ -30,13 +31,15 @@ smartmontools
 neovim
 curl
 wget
+gparted
+nvme-cli
 git
 htop
 tmux
 EOF
 
 echo "==> Building ISO..."
-lb build # >/dev/null 2>&1
+lb build >/dev/null 2>&1
 
 echo "==> Moving ISO to output directory..."
 cd ..
